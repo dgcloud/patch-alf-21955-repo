@@ -1,35 +1,36 @@
-# Alfresco Platform JAR Module - SDK 3
 
-To run use `mvn clean install -DskipTests=true alfresco:run` or `./run.sh` and verify that it 
+Alfresco Patch to Documents being edited using Google Docs integration are not returned by "Documents I am editing"
+===================================================================================================================
 
- * Runs the embedded Tomcat + H2 DB 
- * Runs Alfresco Platform (Repository)
- * Runs Alfresco Solr4
- * Packages both as JAR and AMP assembly
- 
- Try cloning it, change the port and play with `enableShare`, `enablePlatform` and `enableSolr`. 
- 
- Protip: This module will work just fine as a Share module if the files are changed and 
- if the enablePlatform and enableSolr is disabled.
- 
-# Few things to notice
+Described at issue [ALF-21955](https://issues.alfresco.com/jira/browse/ALF-21955)
 
- * No parent pom
- * WAR assembly is handled by the Alfresco Maven Plugin configuration
- * Standard JAR packaging and layout
- * Works seamlessly with Eclipse and IntelliJ IDEA
- * JRebel for hot reloading, JRebel maven plugin for generating rebel.xml, agent usage: `MAVEN_OPTS=-Xms256m -Xmx1G -agentpath:/home/martin/apps/jrebel/lib/libjrebel64.so`
- * AMP as an assembly
- * [Configurable Run mojo](https://github.com/Alfresco/alfresco-sdk/blob/sdk-3.0/plugins/alfresco-maven-plugin/src/main/java/org/alfresco/maven/plugin/RunMojo.java) in the `alfresco-maven-plugin`
- * No unit testing/functional tests just yet
- * Resources loaded from META-INF
- * Web Fragment (this includes a sample servlet configured via web fragment)
- 
-# TODO
- 
-  * Abstract assembly into a dependency so we don't have to ship the assembly in the archetype
-  * Purge, 
-  * Functional/remote unit tests
-   
-  
- 
+**Description**
+
+When the Google Docs integration is deployed, the documents being edited by users are not returned by the searches executed by Share.
+
+This patch changes the queries in 3 different places:
+Dashlets My Documents and Site Acitivities
+Document Library's treeview, filters I'm Editing and Others Are Editing.
+
+**License**
+The plugin is licensed under the [LGPL v3.0](http://www.gnu.org/licenses/lgpl-3.0.html).
+
+**State**
+Current patch release is 1.0
+
+**Compatibility**
+The current version has been developed using Alfresco 201704 and Alfresco SDK 3.0.1
+
+***No original Alfresco resources have been overwritten***
+
+Downloading the ready-to-deploy-plugin
+--------------------------------------
+The binary distribution is made of one amp file to be deployed in Alfresco as a repo module at releases tab.
+
+You can install them by using standard Alfresco deployment tools in alfresco.war
+
+
+Building the artifacts
+----------------------
+You can build the artifacts from source code using maven
+```$ mvn clean package```
