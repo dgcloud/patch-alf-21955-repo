@@ -1,3 +1,11 @@
+/*
+ * This is a copy of the original file from 5.2.f
+ *
+ * Changes are only in the filter queries for "editingMe" and "editingOthers".
+ * The cm\\:lockType:\"READ_ONLY_LOCK" was added in order to have documents being edited using google docs to
+ * be returned
+ */
+
 var Filters =
 {
    /**
@@ -155,7 +163,9 @@ var Filters =
             filterQuery = this.constructPathQuery(parsedArgs);
             filterQuery += " +((+@cm\\:workingCopyOwner:\"" + person.properties.userName + '")';
             filterQuery += " OR (+@cm\\:lockOwner:\"" + person.properties.userName + '"';
-            filterQuery += " +@cm\\:lockType:\"WRITE_LOCK\"))";
+            filterQuery += " +@cm\\:lockType:\"WRITE_LOCK\")";
+            filterQuery += " OR (+@cm\\:lockOwner:\"" + person.properties.userName + '"';
+            filterQuery += " +@cm\\:lockType:\"READ_ONLY_LOCK\"))";
             filterParams.query = filterQuery;
             break;
 
@@ -164,7 +174,9 @@ var Filters =
             filterQuery += " +ASPECT:\"workingcopy\"";
             filterQuery += " +((-@cm\\:workingCopyOwner:\"" + person.properties.userName + '")';
             filterQuery += " OR (-@cm\\:lockOwner:\"" + person.properties.userName + '"';
-            filterQuery += " +@cm\\:lockType:\"WRITE_LOCK\"))";
+            filterQuery += " +@cm\\:lockType:\"WRITE_LOCK\")";
+            filterQuery += " OR (-@cm\\:lockOwner:\"" + person.properties.userName + '"';
+            filterQuery += " +@cm\\:lockType:\"READ_ONLY_LOCK\"))";
             filterParams.query = filterQuery;
             break;
 

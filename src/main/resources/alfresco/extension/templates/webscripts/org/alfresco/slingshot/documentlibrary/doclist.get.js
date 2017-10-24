@@ -1,6 +1,10 @@
 <import resource="classpath:/alfresco/templates/webscripts/org/alfresco/slingshot/documentlibrary/evaluator.lib.js">
-<import resource="classpath:/alfresco/templates/webscripts/org/alfresco/slingshot/documentlibrary/filters.lib.js">
+<import resource="classpath:/alfresco/extension/templates/webscripts/org/alfresco/slingshot/documentlibrary/filters.lib.js">
 <import resource="classpath:/alfresco/templates/webscripts/org/alfresco/slingshot/documentlibrary/parse-args.lib.js">
+
+/**
+ * The only change inside this file is the import of the custom filters.lib.js file
+ */
 
 const REQUEST_MAX = 1000;
 const SITES_SPACE_QNAME_PATH = "/app:company_home/st:sites/";
